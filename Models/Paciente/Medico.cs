@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization; // Este es el que se necesita agegar para Requiered
+using Simulacro2.Services.Citas;
 
 namespace Simulacro2.Models
 {

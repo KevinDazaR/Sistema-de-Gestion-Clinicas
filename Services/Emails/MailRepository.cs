@@ -1,13 +1,11 @@
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Simulacro2.Models.Email;
 
-
 namespace Simulacro2.Services.Emails
 {
-    public class MailRepository 
+    public class MailRepository : IMailRepository
     {
         private readonly HttpClient _httpClient;
 
@@ -16,17 +14,14 @@ namespace Simulacro2.Services.Emails
             _httpClient = httpClient;
         }
 
-        public async Task EnviarCorreoAsyn(Email email)
+        public async Task EnviarCorreoAsync(Email email)
         {
-            string url = "https://api.mailersend.com/v1/email";
-            string jwtToken = "mlsn.98baf48789cc15783ed25cc047098fbfcd649d27422c99849b7e70e8512cd5fa";
-            
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {jwtToken}");
+            var jsonContent = JsonSerializer.Serialize(email);
+            var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 
-            var jsonBody = JsonSerializer.Serialize(email);
-            var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+            // Aquí deberías proporcionar la URL correcta para enviar el correo
+            var response = await _httpClient.PostAsync("URL_DEL_SERVICIO_DE_CORREO", content);
 
-            var response = await _httpClient.PostAsync(url, content);
             response.EnsureSuccessStatusCode();
         }
     }

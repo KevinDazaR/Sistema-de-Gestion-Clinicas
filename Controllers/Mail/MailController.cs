@@ -5,13 +5,16 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Simulacro2.Services.Citas;
 using Simulacro2.Services.Emails;
+using Simulacro2.Models;
+using Simulacro2.Models.Email;
+
 
 
 namespace Simulacro2.Controllers.Emails
 {
-    public class MailRepository: MailRepository
+    public class MailRepository: IMailRepository
     {
-        public async Task EnviarCorreoAsync()
+        public async Task EnviarCorreoAsync(Email email)
         {
             try
             {

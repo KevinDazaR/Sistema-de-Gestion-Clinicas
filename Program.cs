@@ -18,19 +18,24 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers(); // Important
 
 
+
 builder.Services.AddDbContext<BaseContext>(Options =>
     Options.UseMySql(
         builder.Configuration.GetConnectionString("MySqlConnection"),
         Microsoft.EntityFrameworkCore.ServerVersion.Parse("(8.0.20-mysql")
         ));
 
+builder.Services.AddScoped<IPacientesRepository, PacientesRepository>();
+builder.Services.AddScoped<IEspecialidadesRepository, EspecialidadesRepository>();
+builder.Services.AddScoped<IMedicosRepository, MedicosRepository>();
+builder.Services.AddScoped<ICitasRepository, CitasRepository>();
+// builder.Services.AddHttpClient();
 
-builder.Services.AddScoped<IPacientesRepository, PacientesRepository>(); // Important
-builder.Services.AddScoped<IEspecialidadesRepository, EspecialidadesRepository>(); // Important
-builder.Services.AddScoped<IMedicosRepository, MedicosRepository>(); // Important
-builder.Services.AddScoped<ICitasRepository, CitasRepository>(); // Important
-//builder.Services.AddHttpClient<IMailRepository, MailRepository>();
+// builder.Services.AddScoped<IMailRepository, MailRepository>();
 builder.Services.AddScoped<ITratamientosRepository, TratamientosRepository>();
+builder.Services.AddScoped<IMailRepository, MailRepository>();
+builder.Services.AddHttpClient(); // Agregar esta línea
+
 
 
 var app = builder.Build();

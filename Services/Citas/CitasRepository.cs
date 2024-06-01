@@ -3,7 +3,9 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Simulacro2.Data;
 using Simulacro2.Models;
+using Simulacro2.Models.Email;
 using Simulacro2.Services.Emails;
+
 
 
 namespace Simulacro2.Services.Citas
@@ -22,23 +24,23 @@ namespace Simulacro2.Services.Citas
         public IEnumerable<Cita> GetAll()
         {
             return _context.Citas
-                .Include(x => x.Medico)
-                .Include(x => x.Paciente)
+                // .Include(x => x.Medico)
+                // .Include(x => x.Paciente)
                 .ToList();
         }
 
         public Cita GetById(int id)
         {
             return _context.Citas
-                .Include(x => x.Medico)
-                .Include(x => x.Paciente)
+                // .Include(x => x.Medico)
+                // .Include(x => x.Paciente)
                 .FirstOrDefault(x => x.Id == id);
         }
 
         public void Add(Cita cita)
         {
             _context.Citas.Add(cita);
-            _context.SaveChanges();
+            
 
             // Lógica para enviar el correo
             var email = new Email
@@ -49,8 +51,9 @@ namespace Simulacro2.Services.Citas
                 Text = "Su cita ha sido creada exitosamente.",
                 Html = "<p>Su cita ha sido creada exitosamente.</p>"
             };
-
             _mailRepository.EnviarCorreoAsync(email).GetAwaiter().GetResult();
+            _context.Citas.Add(cita);
+            _context.SaveChanges();
         }
 
         public void Update(Cita cita)
