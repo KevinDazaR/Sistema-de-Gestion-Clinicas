@@ -3,6 +3,7 @@ using Simulacro2.Services.Pacientes;
 using Simulacro2.Services.Especialidades;
 using Simulacro2.Services.Medicos;
 using Simulacro2.Services.Citas;
+using Simulacro2.Services.Emails;
 using Simulacro2.Services.Tratamientos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -28,7 +29,9 @@ builder.Services.AddScoped<IPacientesRepository, PacientesRepository>(); // Impo
 builder.Services.AddScoped<IEspecialidadesRepository, EspecialidadesRepository>(); // Important
 builder.Services.AddScoped<IMedicosRepository, MedicosRepository>(); // Important
 builder.Services.AddScoped<ICitasRepository, CitasRepository>(); // Important
+//builder.Services.AddHttpClient<IMailRepository, MailRepository>();
 builder.Services.AddScoped<ITratamientosRepository, TratamientosRepository>();
+
 
 var app = builder.Build();
 

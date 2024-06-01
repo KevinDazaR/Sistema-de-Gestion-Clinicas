@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Simulacro2.Models;
+using Simulacro2.Services.Citas;
+using Simulacro2.Services.Emails;
 
 namespace Simulacro2.Services.Citas
 {
